@@ -34,3 +34,38 @@ def naive_bayes(table, evidence_row, target):
   final_2=cond_probs_product(table, evidence_row, target, target_val)*prior_prob(table,target,target_val)
   p0,p1=compute_probs(final_1,final_2)
   return [p0, p1]
+
+def metrics(zipped_list):
+  #asserts here
+  assert isinstance(zipped_list, list), "parameter should be a list."
+  for metric in zipped_list:
+    assert isinstance(metric, list), "The parameter should be a list of lists."
+  assert all(len(metric) == 2 for metric in zipped_list), "Each element in metrics should be a pair."
+  #assert len(metric) == len(zipped_list[0]), "The should be a zipped list."
+  for metric in zipped_list:
+    for value in metric:
+       assert isinstance(value, int) and value >= 0, "Each value in the pair should be an integer that is non-negative."
+  #body of function below
+  tn = sum([1 if pair==[0,0] else 0 for pair in zipped_list])
+  tp = sum([1 if pair==[1,1] else 0 for pair in zipped_list])
+  fp = sum([1 if pair==[1,0] else 0 for pair in zipped_list])
+  fn = sum([1 if pair==[0,1] else 0 for pair in zipped_list])
+  
+  if tp+fp == 0:
+    precision = 0
+  else:
+    precision = tp /(tp+fp)
+  
+  if tp+fn == 0:
+    recall = 0
+  else:
+    recall = tp /(tp+fn)
+  
+  if precision * recall == 0:
+    f1 = 0
+  else:
+    f1 = 2*(precision * recall) / (precision + recall)
+    
+  accuracy = sum([p == a for p, a in zipped_list]) / len(zipped_list)  
+  dictionary={'Precision': precision, 'Recall': {recall}, 'F1': {f1},'Accuracy':{accuracy}}
+  return dictionary

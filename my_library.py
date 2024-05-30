@@ -67,5 +67,5 @@ def metrics(zipped_list):
     f1 = 2*(precision * recall) / (precision + recall)
     
   accuracy = sum([p == a for p, a in zipped_list]) / len(zipped_list)  
-  dictionary={'Precision': precision, 'Recall': {recall}, 'F1': {f1},'Accuracy':{accuracy}}
+  dictionary={'Precision': precision, 'Recall': recall, 'F1': f1,'Accuracy': accuracy}
   return dictionary

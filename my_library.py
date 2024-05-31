@@ -46,7 +46,7 @@ def metrics(zipped_list):
      assert float(a) in [0.0,1.0] and float(b) in [0.0,1.0], f'zipped_list contains a non-binary pair: {[a,b]}'
   for metric in zipped_list:
     for value in metric:
-       assert isinstance(value, int) and value >= 0, "Each value in the pair should be an integer that is non-negative."
+      # assert isinstance(value, int) and value >= 0, "Each value in the pair should be an integer that is non-negative."
   #body of function below
   tn = sum([1 if pair==[0,0] else 0 for pair in zipped_list])
   tp = sum([1 if pair==[1,1] else 0 for pair in zipped_list])

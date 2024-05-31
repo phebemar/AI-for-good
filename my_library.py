@@ -40,8 +40,10 @@ def metrics(zipped_list):
   assert isinstance(zipped_list, list), "parameter should be a list."
   for metric in zipped_list:
     assert isinstance(metric, list), "The parameter should be a list of lists."
-  assert all(len(metric) == 2 for metric in zipped_list), "Each element in metrics should be a pair."
-  #assert len(metric) == len(zipped_list[0]), "The should be a zipped list."
+  for a,b in zipped_list:
+     assert isinstance(a,(int,float)) and isinstance(b,(int,float)), f'zipped_list contains a non-int or non-float pair: {[a,b]}'
+  for a,b in zipped_list:
+     assert float(a) in [0.0,1.0] and float(b) in [0.0,1.0], f'zipped_list contains a non-binary pair: {[a,b]}'
   for metric in zipped_list:
     for value in metric:
        assert isinstance(value, int) and value >= 0, "Each value in the pair should be an integer that is non-negative."
